@@ -15,7 +15,6 @@ RUN ls src/agenda-go-cli
 
 RUN go get -v agenda-go-cli
 RUN go install agenda-go-cli
-RUN service
 
 RUN go get -v agenda-go-server/service
 RUN go install agenda-go-server/service
