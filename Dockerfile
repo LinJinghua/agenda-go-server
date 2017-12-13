@@ -1,7 +1,22 @@
-FROM golang:1.8 
-COPY . "$gocode/src/github.com/agenda-go-server" 
-RUN cd "$gocode/src/github.com/agenda-go-server/cli" && go get -v && go install -v 
-RUN cd "$gocode/src/github.com/agenda-go-server/service" && go get -v && go install -v 
-WORKDIR / 
-EXPOSE 8080 
-VOLUME ["/data"] 
+FROM golang:1.8
+
+ENV GOPATH /go
+ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+
+RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
+WORKDIR $GOPATH
+
+RUN go get -v github.com/LinJinghua/agenda-go-server | true
+RUN mv "$GOPATH/src/github.com/LinJinghua/agenda-go-server" "$GOPATH/src/agenda-go-server"
+RUN mv "$GOPATH/src/agenda-go-server/cli" "$GOPATH/src/agenda-go-cli"
+
+RUN ls src/agenda-go-server
+RUN ls src/agenda-go-cli
+
+RUN go get -v agenda-go-cli
+RUN go install agenda-go-cli
+RUN service
+
+RUN go get -v agenda-go-server/service
+RUN go install agenda-go-server/service
+RUN service
