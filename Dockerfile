@@ -8,7 +8,7 @@ WORKDIR $GOPATH
 
 RUN go get -v github.com/LinJinghua/agenda-go-server | true
 RUN mv "$GOPATH/src/github.com/LinJinghua/agenda-go-server" "$GOPATH/src/agenda-go-server"
-RUN cp "$GOPATH/src/agenda-go-server/cli" "$GOPATH/src/agenda-go-cli"
+RUN cp -r "$GOPATH/src/agenda-go-server/cli" "$GOPATH/src/agenda-go-cli"
 
 RUN ls src/agenda-go-server
 RUN ls src/agenda-go-cli
