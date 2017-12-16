@@ -6,14 +6,14 @@ import (
 	// _ "github.com/go-sql-driver/mysql"
 	// _ "github.com/lib/pq"
 	"github.com/go-xorm/xorm"
-	"agenda-go-server/service/loghelper"
+	"github.com/Sevennn/agenda-go-server/service/loghelper"
 	"path/filepath"
 )
 
 var orm *xorm.Engine
 // var logFile *os.File
 
-var dbFilePath = "/src/agenda-go-server/service/data/db.db"
+var dbFilePath = "/src/github.com/Sevennn/agenda-go-server/service/data/db.db"
 
 func init() {
 	dbFilePath = filepath.Join(loghelper.GoPath, dbFilePath)
@@ -109,6 +109,18 @@ func findAllMeetings() []Meeting {
 		// loghelper.Error.Println("findAllMeetings = ", vec[i], out[i])
 	}
 	return out
+}
+
+func findMeetingByTitle(title string) *Meeting {
+	v := &Met{Title: title}
+	has, err := orm.Get(v)
+	if err != nil {
+		loghelper.Error.Println("findMeetingByTitle Error:", err)
+	}
+	if has {
+		return v.toMet()
+	}
+	return nil
 }
 
 func updateMeeting(origin, modify *Meeting) error {

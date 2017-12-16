@@ -1,13 +1,13 @@
 package service
 
 import (
-	"agenda-go-server/cli/entity"
-	"agenda-go-server/cli/loghelper"
+	"github.com/Sevennn/agenda-go-server/cli/entity"
+	"github.com/Sevennn/agenda-go-server/cli/loghelper"
 	"log"
 )
 
 
-var curuserinfoPath = "/src/agenda-go-cli/data/curuser.txt"
+var curuserinfoPath = "/src/github.com/Sevennn/agenda-go-server/cli/data/curuser.txt"
 var errLog *log.Logger
 type User entity.User
 type Meeting entity.Meeting
